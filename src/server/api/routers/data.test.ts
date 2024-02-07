@@ -5,6 +5,7 @@ import { createInnerTRPCContext } from '../trpc'
 
 import { expect, suite, test } from 'vitest'
 
+process.env.TZ = 'UTC'
 suite('data router', async () => {
     const ctx = createInnerTRPCContext({})
     const caller = createCaller(ctx)
@@ -20,7 +21,7 @@ suite('data router', async () => {
 
         const input: Input = {
             startDate: sevenDaysAgo.toISOString().split('T')[0],
-            endDate: tomorrow.toDateString(),
+            endDate: tomorrow.toISOString().split('T')[0],
         }
         const result = await caller.data.daterange(input)
 
