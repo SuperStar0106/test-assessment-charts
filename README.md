@@ -57,7 +57,7 @@ The project uses Github Actions for CI/CD. It runs the tests and builds the type
     3. Start the project
 
         ```bash
-        npm start
+        npm dev
         ```
     #### Run using Docker
     
