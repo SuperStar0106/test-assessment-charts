@@ -1,8 +1,10 @@
-import { dataRouter } from '~/server/api/routers/data'
-import { createTRPCRouter } from '~/server/api/trpc'
+import { dataRouter } from './routers/data'
+import { createCallerFactory, createTRPCRouter } from './trpc'
 
 export const appRouter = createTRPCRouter({
     data: dataRouter,
 })
 
 export type AppRouter = typeof appRouter
+
+export const createCaller = createCallerFactory(appRouter)

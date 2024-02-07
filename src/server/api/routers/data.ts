@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
-import { createTRPCRouter, publicProcedure } from '~/server/api/trpc'
-import { db } from '~/server/db'
+import { createTRPCRouter, publicProcedure } from '../trpc'
+import { db } from '../../db'
 
 export const dataRouter = createTRPCRouter({
     daterange: publicProcedure

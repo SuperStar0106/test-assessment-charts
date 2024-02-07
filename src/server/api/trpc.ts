@@ -3,11 +3,11 @@ import { type CreateNextContextOptions } from '@trpc/server/adapters/next'
 import superjson from 'superjson'
 import { ZodError } from 'zod'
 
-import { db } from '~/server/db'
+import { db } from '../db'
 
 type CreateContextOptions = Record<string, never>
 
-const createInnerTRPCContext = (_opts: CreateContextOptions) => {
+export const createInnerTRPCContext = (_opts: CreateContextOptions) => {
     return {
         db,
     }
@@ -36,3 +36,5 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
 export const createTRPCRouter = t.router
 
 export const publicProcedure = t.procedure
+
+export const createCallerFactory = t.createCallerFactory
