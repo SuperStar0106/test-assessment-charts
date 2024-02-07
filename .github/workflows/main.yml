@@ -3,18 +3,9 @@ on: [push]
 jobs:
     e2e:
         name: 'Build + E2E tests'
-        services:
-            postgres:
-                image: postgres
-                env:
-                    POSTGRES_DATABASE: trpcdb
-                    POSTGRES_USER: postgres
-                    POSTGRES_HOST_AUTH_METHOD: trust
-                ports:
-                    - 5432:5432
         env:
             NODE_ENV: test
-            DATABASE_URL: postgres://postgres:@localhost:5432/trpcdb
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repo
@@ -39,7 +30,7 @@ jobs:
                   key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}-nextjs
 
             - name: Setup Prisma
-              run: npm run db:push
+              run: npm run db:generate
 
             - run: npm run db:populate
             - run: npm run build
@@ -58,18 +49,9 @@ jobs:
 
     unit:
         name: 'Unit tests + typecheck'
-        services:
-            postgres:
-                image: postgres
-                env:
-                    POSTGRES_DATABASE: trpcdb
-                    POSTGRES_USER: postgres
-                    POSTGRES_HOST_AUTH_METHOD: trust
-                ports:
-                    - 5432:5432
         env:
             NODE_ENV: test
-            DATABASE_URL: postgres://postgres:@localhost:5432/trpcdb
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repo
@@ -92,7 +74,7 @@ jobs:
                   key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}-nextjs
 
             - name: Setup Prisma
-              run: npm run db:push
+              run: npm run db:generate
 
             - run: npm run db:populate
             - run: npm run test-unit

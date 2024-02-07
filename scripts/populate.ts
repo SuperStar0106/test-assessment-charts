@@ -34,23 +34,26 @@ const main = async () => {
                 date: 'desc',
             },
         })) ?? { date: new Date() }
+        console.log('Last date:', lastDate.date.toISOString())
         const today = new Date()
 
         const data = Array.from(
-            {
-                length:
-                    (today.getTime() - lastDate.date.getTime()) /
-                    (1000 * 60 * 60 * 24),
-            },
+            { length: (today.getTime() - lastDate.date.getTime()) / 86400000 },
             (_, i) => {
-                const date = new Date()
-                date.setDate(lastDate.date.getDate() + i)
+                const date = new Date(lastDate.date)
+                date.setDate(date.getDate() + (i + 1))
                 return {
                     date,
                     value: Math.random() * 100,
                 }
             },
         )
+
+        if (data.length === 0) {
+            console.log('No new data to add')
+            return
+        }
+        console.log('Adding', data.length, 'new data points')
 
         await db.data.createMany({
             data,
@@ -69,6 +72,7 @@ main()
     .catch((e) => {
         throw e
     })
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     .finally(async () => {
         await db.$disconnect()
     })

@@ -5,14 +5,14 @@
     "type": "module",
     "scripts": {
         "build": "next build",
-        "db:push": "prisma db push",
+        "db:generate": "prisma generate",
         "db:studio": "prisma studio",
         "db:populate": "node --loader ts-node/esm scripts/populate.ts",
         "dev": "next dev",
         "postinstall": "prisma generate",
         "lint": "next lint",
         "start": "next start",
-        "format": "prettier --write .",
+        "format": "prettier --config prettier.config.js --write \"./**/*.{ts,tsx,js,jsx,json}\"",
         "test-unit": "vitest",
         "test-e2e": "playwright test",
         "test-start": "run-s test-unit test-e2e"
