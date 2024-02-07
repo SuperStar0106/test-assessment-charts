@@ -42,7 +42,7 @@ jobs:
         run: npm run db:push
 
       - run: npm run db:populate
-      - run: npm build
+      - run: npm run build
       - run: npm test-e2e
 
       - name: Check types
@@ -69,7 +69,7 @@ jobs:
           - 5432:5432
     env:
       NODE_ENV: test
-      NEXTAUTH_SECRET: supersecret
+      DATABASE_URL: postgres://postgres:@localhost:5432/trpcdb
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
