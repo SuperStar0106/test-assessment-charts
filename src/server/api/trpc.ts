@@ -1,36 +1,38 @@
-import { initTRPC } from "@trpc/server";
-import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-import superjson from "superjson";
-import { ZodError } from "zod";
+import { initTRPC } from '@trpc/server'
+import { type CreateNextContextOptions } from '@trpc/server/adapters/next'
+import superjson from 'superjson'
+import { ZodError } from 'zod'
 
-import { db } from "~/server/db";
+import { db } from '~/server/db'
 
-type CreateContextOptions = Record<string, never>;
+type CreateContextOptions = Record<string, never>
 
 const createInnerTRPCContext = (_opts: CreateContextOptions) => {
-  return {
-    db,
-  };
-};
+    return {
+        db,
+    }
+}
 
 export const createTRPCContext = (_opts: CreateNextContextOptions) => {
-  return createInnerTRPCContext({});
-};
+    return createInnerTRPCContext({})
+}
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
-  transformer: superjson,
-  errorFormatter({ shape, error }) {
-    return {
-      ...shape,
-      data: {
-        ...shape.data,
-        zodError:
-          error.cause instanceof ZodError ? error.cause.flatten() : null,
-      },
-    };
-  },
-});
+    transformer: superjson,
+    errorFormatter({ shape, error }) {
+        return {
+            ...shape,
+            data: {
+                ...shape.data,
+                zodError:
+                    error.cause instanceof ZodError
+                        ? error.cause.flatten()
+                        : null,
+            },
+        }
+    },
+})
 
-export const createTRPCRouter = t.router;
+export const createTRPCRouter = t.router
 
-export const publicProcedure = t.procedure;
+export const publicProcedure = t.procedure
