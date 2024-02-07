@@ -1,7 +1,6 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { useState } from 'react'
-import { Button, DateRange } from 'react-day-picker'
+import { type DateRange } from 'react-day-picker'
 import Chart from '~/components/Chart'
 import { DatePickerWithRange } from '~/components/Daterange'
 import { api } from '~/utils/api'

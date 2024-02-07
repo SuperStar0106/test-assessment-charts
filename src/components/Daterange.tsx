@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { CalendarIcon } from '@radix-ui/react-icons'
-import { format, differenceInDays, max } from 'date-fns'
-import { DateRange } from 'react-day-picker'
+import { format, differenceInDays } from 'date-fns'
+import { type DateRange } from 'react-day-picker'
 import { cn } from '~/lib/utils'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { Calendar } from './ui/calendar'
@@ -22,7 +22,7 @@ export function DatePickerWithRange({
     })
 
     const isOutsideRange = (day: Date) => {
-        if (!date || !date.from) return false
+        if (!date?.from) return false
 
         const diff = differenceInDays(day, date.from)
         return diff < 0 || diff > maxRange

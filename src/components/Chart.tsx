@@ -6,23 +6,20 @@ import {
     BarChart,
     Bar,
     Tooltip,
-    TooltipProps,
+    type TooltipProps,
 } from 'recharts'
 
-import { CSSProperties, FC, useState } from 'react'
+import { type CSSProperties, type FC, useState } from 'react'
 import { Card, CardContent, CardHeader } from './ui/card'
-import { Data } from '@prisma/client'
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuLabel,
     DropdownMenuRadioItem,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 import { Button } from './ui/button'
 import { DropdownMenuRadioGroup } from './ui/dropdown-menu'
-import { NameType } from 'recharts/types/component/DefaultTooltipContent'
+import type { NameType } from 'recharts/types/component/DefaultTooltipContent'
 
 type ChartProps = {
     data: { date: string; value: number }[]
@@ -32,7 +29,7 @@ const TooltipContent = <T extends (string | number)[], S extends NameType>({
     active,
     payload,
 }: TooltipProps<T, S>) => {
-    if (active && payload && payload.length) {
+    if (active && payload?.length) {
         return (
             <div className="rounded-lg border bg-background p-2 shadow-sm">
                 <div className="flex flex-col">
