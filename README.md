@@ -18,16 +18,15 @@
     DATABASE_URL=postgres://user:xxxxxxxx@xxxxxxxxx:5432/database
     ```
 
-    4. Run the migrations and Populate the database
+4. Run the migrations and Populate the database
 
     ```bash
     npm run db:push
     npm run db:populate
     ```
 
-    5. Start the project
+5. Start the project
 
     ```bash
     npm start
     ```
-
