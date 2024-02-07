@@ -13,14 +13,14 @@ suite('data router', async () => {
         type Input = inferProcedureInput<AppRouter['data']['daterange']>
 
         const today = new Date()
-        today.setHours(23, 59, 59, 999)
-        console.log(today.toISOString())
+        const tomorrow = new Date(today)
+        tomorrow.setDate(today.getDate() + 1)
         const sevenDaysAgo = new Date(today)
         sevenDaysAgo.setDate(today.getDate() - 7)
 
         const input: Input = {
             startDate: sevenDaysAgo.toISOString().split('T')[0],
-            endDate: today.toISOString(),
+            endDate: tomorrow.toDateString(),
         }
         const result = await caller.data.daterange(input)
 
