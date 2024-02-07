@@ -3,28 +3,32 @@ import { PrismaClient } from "@prisma/client";
 const db = new PrismaClient();
 
 const main = async () => {
-    // create data for the database, { date: Date, value: float }. 100 Records 100 days back to today
+   // change the order, so the latest data is last
+    const allData = await db.data.findMany({
+         orderBy: {
+            date: "asc"
+         }
+    });
 
-    const data = Array.from({ length: 100 }, (_, i) => {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
+    await db.data.deleteMany({});
+
+    const data = allData.map((d) => {
         return {
-            date,
-            value: Math.random() * 100,
-        };
-    }).sort((a, b) => a.date.getTime() - b.date.getTime());
+            date: d.date,
+            value: d.value
+        }
+    });
 
     await db.data.createMany({
         data,
     });
 
-    const allData = await db.data.findMany();
     console.table({
         length: allData.length,
         first: allData[0],
         last: allData[allData.length - 1],
     });
-}
+}   
 
 main()
     .catch(e => {
@@ -33,5 +37,3 @@ main()
     .finally(async () => {
         await db.$disconnect();
     });
-
-
