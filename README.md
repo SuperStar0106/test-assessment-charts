@@ -39,11 +39,29 @@ The project uses Github Actions for CI/CD. It runs the tests and builds the type
     npm install
     ```
 
-    #### Run using Docker
+    #### Run Locally
 
-    ##### Using Docker Compose
+    1. Set .env file
+
+        ```bash
+        DATABASE_URL=mongodb://user:xxxxxxxx@xxxxxxxxx:27017/database
+        ```
+
+    2. Populate the database
+
+        ```bash
+        npm run db:generate
+        npm run db:populate
+        ```
+
+    3. Start the project
+
+        ```bash
+        npm start
+        ```
+    #### Run using Docker
     
-    ##### Using Docker
+    ##### Docker
 
     1. Build the image
 
@@ -57,7 +75,7 @@ The project uses Github Actions for CI/CD. It runs the tests and builds the type
         docker run -p 3000:3000 -e DATABASE_URL="your_mongodb_url" chart-poc
         ```
     
-    #### Run using Docker Compose
+    #### Docker Compose
 
     1. Set the .env file
 
@@ -71,28 +89,6 @@ The project uses Github Actions for CI/CD. It runs the tests and builds the type
         docker-compose up
         ```
     
-
-    #### Run Locally
-
-    3. Set .env file
-
-        ```bash
-        DATABASE_URL=mongodb://user:xxxxxxxx@xxxxxxxxx:27017/database
-        ```
-
-    4. Run the migrations and Populate the database
-
-        ```bash
-        npm run db:generate
-        npm run db:populate
-        ```
-
-    5. Start the project
-
-        ```bash
-        npm start
-        ```
-
 
 
 
