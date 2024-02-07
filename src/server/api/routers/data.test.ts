@@ -20,7 +20,7 @@ suite('data router', async () => {
 
         expect(result).toBeTruthy()
         expect(result[0]?.date.toLocaleDateString()).toEqual(
-            new Date('2023-10-26').toLocaleDateString(),
+            new Date('2023-10-27').toLocaleDateString(),
         )
         expect(result[0]?.value).toBeTypeOf('number')
         expect(result[result.length - 1]?.date.toLocaleDateString()).toEqual(

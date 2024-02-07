@@ -1,6 +1,4 @@
-## Test Assessment
-
-### T3 / Recharts
+### T3 / Recharts POC
 
 #### Setup
 

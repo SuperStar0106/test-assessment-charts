@@ -1,4 +1,4 @@
-import { PlaywrightTestConfig, devices } from '@playwright/test'
+import { type PlaywrightTestConfig, devices } from '@playwright/test'
 
 const opts = {
     headless: !!process.env.CI || !!process.env.PLAYWRIGHT_HEADLESS,
