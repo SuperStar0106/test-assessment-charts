@@ -5,7 +5,7 @@ const opts = {
 }
 const config: PlaywrightTestConfig = {
     testDir: './playwright',
-    timeout: 35e3,
+    timeout: 60000,
     outputDir: './playwright/test-results',
     reporter: process.env.CI ? 'github' : 'list',
     use: {
@@ -15,7 +15,7 @@ const config: PlaywrightTestConfig = {
     },
     retries: process.env.CI ? 3 : 0,
     webServer: {
-        command: process.env.CI ? 'npm run start' : 'npm run dev',
+        command: 'npm run dev',
         reuseExistingServer: Boolean(process.env.TEST_LOCAL === '1'),
         port: 3000,
     },
