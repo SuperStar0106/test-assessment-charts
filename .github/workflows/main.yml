@@ -14,7 +14,7 @@ jobs:
           - 5432:5432
     env:
       NODE_ENV: test
-      NEXTAUTH_SECRET: supersecret
+      DATABASE_URL: postgres://postgres:@localhost:5432/trpcdb
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
