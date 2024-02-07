@@ -1,3 +1,5 @@
+import { type CSSProperties, type FC, useState } from 'react'
+
 import {
     LineChart,
     Line,
@@ -8,17 +10,15 @@ import {
     Tooltip,
     type TooltipProps,
 } from 'recharts'
-
-import { type CSSProperties, type FC, useState } from 'react'
 import { Card, CardContent, CardHeader } from './ui/card'
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuRadioItem,
     DropdownMenuTrigger,
+    DropdownMenuRadioGroup,
 } from './ui/dropdown-menu'
 import { Button } from './ui/button'
-import { DropdownMenuRadioGroup } from './ui/dropdown-menu'
 import type { NameType } from 'recharts/types/component/DefaultTooltipContent'
 
 type ChartProps = {
@@ -117,7 +117,7 @@ const Chart: FC<ChartProps> = ({ data }) => {
                     <div>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="outline">Type</Button>
+                                <Button variant="outline">{type.charAt(0).toUpperCase() + type.slice(1)}</Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuRadioGroup
