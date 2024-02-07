@@ -1,4 +1,13 @@
-import { LineChart, Line, XAxis, YAxis, BarChart, Bar, Tooltip } from 'recharts'
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    BarChart,
+    Bar,
+    Tooltip,
+    TooltipProps,
+} from 'recharts'
 
 import { CSSProperties, FC, useState } from 'react'
 import { Card, CardContent, CardHeader } from './ui/card'
@@ -13,9 +22,30 @@ import {
 } from './ui/dropdown-menu'
 import { Button } from './ui/button'
 import { DropdownMenuRadioGroup } from './ui/dropdown-menu'
+import { NameType } from 'recharts/types/component/DefaultTooltipContent'
 
 type ChartProps = {
     data: { date: string; value: number }[]
+}
+
+const TooltipContent = <T extends (string | number)[], S extends NameType>({
+    active,
+    payload,
+}: TooltipProps<T, S>) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="rounded-lg border bg-background p-2 shadow-sm">
+                <div className="flex flex-col">
+                    <span className="text-[0.70rem] uppercase text-muted-foreground">
+                        Value
+                    </span>
+                    <span className="font-bold text-muted-foreground">
+                        {payload[0]?.value}
+                    </span>
+                </div>
+            </div>
+        )
+    }
 }
 
 const Chart: FC<ChartProps> = ({ data }) => {
@@ -55,25 +85,7 @@ const Chart: FC<ChartProps> = ({ data }) => {
                             } as React.CSSProperties
                         }
                     />
-                    <Tooltip
-                        content={({ active, payload }) => {
-                            if (active && payload && payload.length) {
-                                return (
-                                    <div className="rounded-lg border bg-background p-2 shadow-sm">
-                                        <div className="flex flex-col">
-                                            <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                Value
-                                            </span>
-                                            <span className="font-bold text-muted-foreground">
-                                                {payload[0]?.value}
-                                            </span>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                            return null
-                        }}
-                    />
+                    <Tooltip content={TooltipContent} />
                 </LineChart>
             )
         } else if (type === 'bar') {
@@ -83,23 +95,7 @@ const Chart: FC<ChartProps> = ({ data }) => {
                     <YAxis />
                     <Tooltip
                         cursor={{ fill: 'hsl(24 5.4% 63.9%)', opacity: 0.3 }}
-                        content={({ active, payload }) => {
-                            if (active && payload && payload.length) {
-                                return (
-                                    <div className="rounded-lg border bg-background p-2 shadow-sm">
-                                        <div className="flex flex-col">
-                                            <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                Value
-                                            </span>
-                                            <span className="font-bold text-muted-foreground">
-                                                {payload[0]?.value}
-                                            </span>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                            return null
-                        }}
+                        content={TooltipContent}
                     />
                     <Bar
                         dataKey="value"
