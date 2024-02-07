@@ -30,7 +30,7 @@ jobs:
         run: npm install
 
       - name: Install playwright
-        run: npm playwright install chromium
+        run: npx paywright install chromium
 
       - name: Next.js cache
         uses: actions/cache@v3
@@ -39,8 +39,9 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}-nextjs
 
       - name: Setup Prisma
-        run: npm prebuild
+        run: npm run db:push
 
+      - run: npm run db:populate
       - run: npm build
       - run: npm test-e2e
 
@@ -75,10 +76,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-      - uses: npm/action-setup@v2
-        with:
-          version: 8.5.1
 
       - uses: actions/setup-node@v3
         with:
