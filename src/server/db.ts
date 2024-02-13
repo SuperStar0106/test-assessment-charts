@@ -14,3 +14,5 @@ export const db =
                 ? ['query', 'error', 'warn']
                 : ['error'],
     })
+
+if (env.NODE_ENV !== 'production') globalForPrisma.prisma = db
